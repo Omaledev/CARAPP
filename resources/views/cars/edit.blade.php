@@ -24,7 +24,8 @@
           name="founded"
           value="{{ $car->founded }}"  
           id="founded" required>
-
+          
+          
           <input 
            type="file"
            class="block shadow-5xl mb-10 p-2 w-80 italic placeholder-gray-400"

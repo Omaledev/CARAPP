@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Http\Requests\VAlidationRequest;
 
 class CarsController extends Controller
 {
@@ -12,7 +13,8 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Car::all();
+        // $cars = Car::all();
+        $cars = Car::paginate(3);
 
         return view('index', [
             'cars' => $cars
@@ -30,15 +32,11 @@ class CarsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ValidationRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'founded' => 'required|integer',
-            'image' => 'nullable|file|mimes:jpg,png,gif,svg|max:255',
-            'description' => 'required|string|max:5000',
-        ]);
-
+        
+        $request->validated();
+        
         $imagePath = null;
         if ($request->hasFile('image')) {
           $imagePath = 'storage/' . $request->file('image')->store('/images', 'public');
@@ -78,14 +76,11 @@ class CarsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ValidationRequest $request, string $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'founded' => 'required|integer',
-            'image' => 'nullable|file|mimes:jpg,png,gif,svg|max:255',
-            'description' => 'required|string|max:5000',
-        ]);
+
+        $request->validated();
+
     
         $car = Car::findOrFail($id);
     

@@ -43,11 +43,9 @@
             <input 
                 type="file" 
                 name="image" 
-                id="image"
-                >
+                id="image">
           </div>
         
-
           <textarea name="description" 
           id="description" 
           rows="4"
